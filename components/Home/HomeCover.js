@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 import usersImage from "../../public/images/users-likes.png";
-import Artist from "../../public/images/CoverArtist2.png";
+import Artist from "../../public/images/CoverArtist.png";
 import spiralBg from "../../public/spiral-bg.png";
 import HeartIcon from "../../public/icons/HeartIcon";
 

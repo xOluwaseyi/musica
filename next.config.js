@@ -2,15 +2,12 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
 };
 
 module.exports = nextConfig;
 
 // next.config.js
 module.exports = {
-  // reactStrictMode: true,
-  // swcMinify: true,
   images: {
     domains: ["musica-api.up.railway.app"],
   },

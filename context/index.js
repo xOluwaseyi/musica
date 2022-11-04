@@ -201,13 +201,11 @@ export const SongContextProvider = ({ children }) => {
 
   // function to add or remove likes
   const addOrRemoveLikes = (id, chart) => {
-    if (Array.isArray(likes)) {
-      var index = likes.findIndex((like) => like.id == id);
-      if (index === -1) {
-        setLikes((current) => [...current, chart]);
-      } else {
-        setLikes((current) => current.filter((like) => like.id !== id));
-      }
+    var index = likes.findIndex((like) => like.id == id);
+    if (index === -1) {
+      setLikes((current) => [...current, chart]);
+    } else {
+      setLikes((current) => current.filter((like) => like.id !== id));
     }
   };
 
@@ -225,37 +223,37 @@ export const SongContextProvider = ({ children }) => {
 
   // function to add to collections or remove from collections
   const addOrRemoveCollection = (id, chart) => {
-    if (Array.isArray(collections)) {
-      const index = collections.findIndex((collection) => collection.id == id);
-      if (index === -1) {
-        setCollections((current) => [...current, chart]);
-      } else {
-        setCollections((current) =>
-          current.filter((collection) => collection.id !== id)
-        );
-      }
+    const index = collections.findIndex((collection) => collection.id == id);
+    if (index === -1) {
+      setCollections((current) => [...current, chart]);
+    } else {
+      setCollections((current) =>
+        current.filter((collection) => collection.id !== id)
+      );
     }
   };
 
   // function to check if collection is added or not
   const collectionAdded = (id) => {
-    if (Array.isArray(collections)) {
-      const index = collections.findIndex((collection) => collection.id == id);
-      if (index === -1) {
-        return false;
-      } else {
-        return true;
-      }
+    const index = collections.findIndex((collection) => collection.id == id);
+    if (index === -1) {
+      return false;
+    } else {
+      return true;
     }
   };
 
   // to get previously liked songs/playlist and collections from local storage
   useEffect(() => {
     const storageLikes = JSON.parse(localStorage.getItem("likes"));
-    setLikes(storageLikes);
+    if (storageLikes !== null) {
+      setLikes(storageLikes);
+    }
 
     const storageCollections = JSON.parse(localStorage.getItem("collections"));
-    setCollections(storageCollections);
+    if (storageCollections !== null) {
+      setCollections(storageCollections);
+    }
   }, []);
 
   // to set liked songs/playlist and collections to local storage

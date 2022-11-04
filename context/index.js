@@ -211,11 +211,13 @@ export const SongContextProvider = ({ children }) => {
 
   // function to check likes
   const songLiked = (id) => {
-    const index = likes.findIndex((like) => like.id == id);
-    if (index === -1) {
-      return false;
-    } else {
-      return true;
+    if (Array.isArray(likes)) {
+      const index = likes.findIndex((like) => like.id == id);
+      if (index === -1) {
+        return false;
+      } else {
+        return true;
+      }
     }
   };
 
@@ -255,7 +257,6 @@ export const SongContextProvider = ({ children }) => {
     localStorage.setItem("likes", JSON.stringify(likes));
     localStorage.setItem("collections", JSON.stringify(collections));
   }, [likes, collections]);
-
 
   //TO PUT ALL NEW RELEASES AND POPULAR SONGS IN AN ARRAY FOR SEARCH
   const [popular, setPopular] = useState([]);

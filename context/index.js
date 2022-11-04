@@ -211,13 +211,11 @@ export const SongContextProvider = ({ children }) => {
 
   // function to check likes
   const songLiked = (id) => {
-    if (Array.isArray(likes)) {
-      const index = likes.findIndex((like) => like.id == id);
-      if (index === -1) {
-        return false;
-      } else {
-        return true;
-      }
+    const index = likes.findIndex((like) => like.id == id);
+    if (index === -1) {
+      return false;
+    } else {
+      return true;
     }
   };
 

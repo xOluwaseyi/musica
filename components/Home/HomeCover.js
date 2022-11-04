@@ -39,7 +39,7 @@ const HomeCover = () => {
               alt="main-photo"
               layout="fill"
               objectFit="cover"
-              priority
+              priority={true}
             />
           </div>
         </div>

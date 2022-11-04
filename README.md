@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎵 **Welcome to Musica Webapp!**
 
-## Getting Started
+This is the repo of [codingossy](https://twitter.com/codingossy)'s October challenge named **Musica** 🎵.
 
-First, run the development server:
+<br />
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+#  ✍🏽 **Overview**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔗 **Links:**
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+ - [Live link](https://musica-webapp.netlify.app/) to the completed project by me.
+ - [Figma link](https://www.figma.com/file/pbwKUpfKPoAcBIgFoXFueS/Musica?node-id=0%3A1) for the challenge.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<br />
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 🦾 **What I have done in this project:**
 
-## Learn More
+ - Users can **Pause**, **Play**, **Prev**, **Next**, **Shuffle** and **Repeat** a song.
+ - Users can **Search** for artists.
+ - Users can **set the Progress bar**(only on Tablet screen size and above) of a song by **clicking** on the progress bar.
+ - Users can **set the volume** by clicking on the volume bar(only on Tablet screen size and above).
+ - Users can play any song from the listed songs displayed on the Homepage.
+ - When users navigate to a playlist, they can **play all songs** in a playlist, **add/remove** a playlist to a **collection** and also **like/unlike** a playlist.
+ - Users can **like/unlike** a song listed on the playlist page(only on Tablet size and above).
+ - Users can play any list song from the playlist page.
+ - Users can play a song/playlist in the **Collections** page.
 
-To learn more about Next.js, take a look at the following resources:
+<br />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📲 **Screenshots:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### **Desktop view:**
+<img src="./readme-images/musica-homepage.png" width="550"> <img src="./readme-images/musica-playlist.png" width="550">
+<br />
 
-## Deploy on Vercel
+<img src="./readme-images/musica-likes.png" width="550"> <img src="./readme-images/musica-search.png" width="550">
+<br />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **Mobile view:**
+<img src="./readme-images/musica-mobile-homepage.png" width="280"> <img src="./readme-images/musica-mobile-likes.png" width="280">
+<br />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## ⚒ **Technologies used:**
+
+ - [NextJS](https://nextjs.org/).
+ - [Tailwind CSS](https://tailwindcss.com/docs/installation).
+ - [Musica API](https://musica-api.up.railway.app/) (customly made by [Hemdee JS](https://twitter.com/SanusiMuhyideen) for this challenge).
+
+<br />
+
+## 📩 **For feedbacks, please reach out to me via:**
+
+ - [Twitter](https://twitter.com/xoluwaseyi)
+ - [Gmail](mailto:seyifagbemi211@gmail.com)

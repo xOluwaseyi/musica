@@ -27,9 +27,27 @@
   }
 }
 
+@layer components {
+  /* desktopnav.js */
+  .navlink-animation {
+    @apply hover:text-[#FACD66] hover:opacity-100 transition ease-in-out hover:scale-100
+  }
+  
+  /* collection.js */
+  .collection-btn {
+    @apply w-[50%] md:w-auto py-2 px-4 mx-5 border-2 border-[#EFEEE0] opacity-50 rounded-full text-[#EFEEE0]
+  }
+  .active-collection-btn {
+    @apply bg-[#FACD66] w-[50%] md:w-auto px-4 py-2 rounded-full text-black font-bold
+  }
+
+  .collection-list {
+    @apply relative h-[250px] w-full md:w-[250px] rounded-2xl overflow-hidden cursor-pointer
+  }
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
-    /* display: none; */
   width: 1px;
   }
 
@@ -44,11 +62,16 @@
     scrollbar-width: 1px;
   }
 
-  .hide {
-    display: none;
-  }
-
-  .collection_div:hover + .hide {
-    display: block
-  }
+  .noSelect {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.noSelect:focus {
+    outline: none !important;
+}
 }

@@ -1,11 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  createContext,
-} from "react";
+import React, { useState, useEffect, useRef, createContext } from "react";
 
+// AUDIO DEFAULT CONTEXT VALUE
 const SongContext = createContext({
   audio: null,
   audioData: null,
@@ -13,10 +8,10 @@ const SongContext = createContext({
   audioArray: [],
   isPlaying: false,
   setIsPlaying: () => {},
-  setAudioArray: (playlist) => {},
+  setAudioArray: () => {},
   prev: () => {},
   next: () => {},
-  setTrackIndex: () => {},
+  setAudioIndex: () => {},
   playlistData: null,
   setPlaylistData: () => {},
   volumeBar: 100,
@@ -32,37 +27,57 @@ const SongContext = createContext({
   likes: [],
   setLikes: () => {},
   collections: [],
-  setCollections: () => {}
+  setCollections: () => {},
+  addOrRemoveLikes: () => {},
+  songLiked: () => {},
+  addOrRemoveCollection: () => {},
+  collectionAdded: () => {},
+  setNewReleases: () => {},
+  setPopular: () => {},
+  search: null,
+  handleSearch: () => {},
+  allMusic: [],
+  searchArray: [],
 });
 
 export const SongContextProvider = ({ children }) => {
+  // AUDIO STATES //
   const [audio, setAudio] = useState(null);
   const [audioData, setAudioData] = useState(null);
   const [audioArray, setAudioArray] = useState([]);
+  const [audioIndex, setAudioIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progressBar, setProgressBar] = useState(0);
+  const [hasEnded, setHasEnded] = useState(false);
 
+  // PLAYLIST DATA STATE
   const [playlistData, setPlaylistData] = useState(null);
 
-  const [progressBar, setProgressBar] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [hasEnded, setHasEnded] = useState(false);
+  // VOLUME STATE
   const [volumeBar, setVolumeBar] = useState(100);
 
+  // SHUFFLE AND LOOP STATE
   const [isShuffle, setIsShuffle] = useState(false);
   const [isLooped, setIsLooped] = useState(false);
 
-  const [collections, setCollections] = useState([])
-  const [likes, setLikes] = useState([])
+  // COLLECTIONS AND LIKES STATE
+  const [collections, setCollections] = useState([]);
+  const [likes, setLikes] = useState([]);
 
-  // to fetch song
+  // PROGRESS AND VOLUME BAR REFS
+  const progressRef = useRef();
+  const volumeRef = useRef();
 
+  //AUDIO FUNCTIONS //
+
+  // to fetch audio
   useEffect(() => {
     if (audioArray.length > 0) {
-      setAudioData(audioArray[trackIndex]);
+      setAudioData(audioArray[audioIndex]);
     }
-  }, [audioArray, trackIndex]);
+  }, [audioArray, audioIndex]);
 
-  // song
+  // to set audio
   useEffect(() => {
     if (audioData !== null) {
       const { audio } = audioData;
@@ -80,18 +95,14 @@ export const SongContextProvider = ({ children }) => {
         setHasEnded(!hasEnded);
       };
 
-      // const setAudioVolume = () => setVolumeBar(volumeBar / 100);
-
       song.addEventListener("timeupdate", ProgressBarFunc);
       song.addEventListener("ended", AudioEndedFunc);
-      // song.addEventListener("volumechange", setAudioVolume);
 
       setAudio(song);
     }
   }, [audioData]);
 
-  // clean up
-
+  // clean up function for when component unmounts/audio changes
   useEffect(() => {
     return () => {
       if (audio !== null) {
@@ -101,24 +112,23 @@ export const SongContextProvider = ({ children }) => {
     };
   }, [audio]);
 
-  // has ended
-
+  // when audio has ended, should it play again or go to the next one..
   useEffect(() => {
     if (hasEnded) {
       if (isLooped) {
         audio.currentTime = 0;
-        audio.play()
+        audio.play();
       } else {
-        next()
+        next();
       }
-      setHasEnded(false)
+      setHasEnded(false);
     }
   }, [hasEnded]);
 
-  // is playing
+  // to play or pause audio
   useEffect(() => {
     if (audio !== null) {
-      audio.volume = volumeBar / 100
+      audio.volume = volumeBar / 100;
       if (isPlaying) {
         audio.play();
       } else {
@@ -127,7 +137,7 @@ export const SongContextProvider = ({ children }) => {
     }
   }, [isPlaying, audio]);
 
-  // prev btn
+  // to play previous song
   const prev = () => {
     if (isLooped) {
       audio.currentTime = 0;
@@ -135,15 +145,15 @@ export const SongContextProvider = ({ children }) => {
       shufflePlaylist();
       return;
     } else {
-      if (trackIndex - 1 < 0) {
-        setTrackIndex(audioArray.length - 1);
+      if (audioIndex - 1 < 0) {
+        setAudioIndex(audioArray.length - 1);
       } else {
-        setTrackIndex(trackIndex - 1);
+        setAudioIndex(audioIndex - 1);
       }
     }
   };
 
-  // nextbtn
+  // to play next song
   const next = () => {
     if (isLooped) {
       audio.currentTime = 0;
@@ -153,17 +163,15 @@ export const SongContextProvider = ({ children }) => {
       shufflePlaylist();
       return;
     } else {
-      if (trackIndex < audioArray.length - 1) {
-        setTrackIndex(trackIndex + 1);
+      if (audioIndex < audioArray.length - 1) {
+        setAudioIndex(audioIndex + 1);
       } else {
-        setTrackIndex(0);
+        setAudioIndex(0);
       }
     }
   };
 
-  // progress bar on click
-  const progressRef = useRef();
-
+  // to set progress bar on click
   const setProgress = (e) => {
     const width = progressRef.current.clientWidth;
     const clickX = e.nativeEvent.offsetX;
@@ -172,18 +180,16 @@ export const SongContextProvider = ({ children }) => {
     audio.currentTime = (clickX / width) * duration;
   };
 
-  // volume bar
-  const volumeRef = useRef();
-
+  // to set volume bar on click
   const setVolumeRef = (e) => {
     const width = volumeRef.current.clientWidth;
     const clickX = e.nativeEvent.offsetX;
 
     audio.volume = (clickX / width) * 1;
-    setVolumeBar((clickX / width) * 100)
+    setVolumeBar((clickX / width) * 100);
   };
 
-  // shuffle
+  // to shufflle song/playlist
   const shufflePlaylist = () => {
     if (audioArray.length === 1) {
       setAudioData(audioArray[0]);
@@ -193,8 +199,90 @@ export const SongContextProvider = ({ children }) => {
     }
   };
 
-  // context value
+  // function to add or remove likes
+  const addOrRemoveLikes = (id, chart) => {
+    var index = likes.findIndex((like) => like.id == id);
+    if (index === -1) {
+      setLikes((current) => [...current, chart]);
+    } else {
+      setLikes((current) => current.filter((like) => like.id !== id));
+    }
+  };
 
+  // function to check likes
+  const songLiked = (id) => {
+    const index = likes.findIndex((like) => like.id == id);
+    if (index === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  // function to add to collections or remove from collections
+  const addOrRemoveCollection = (id, chart) => {
+    const index = collections.findIndex((collection) => collection.id == id);
+    if (index === -1) {
+      setCollections((current) => [...current, chart]);
+    } else {
+      setCollections((current) =>
+        current.filter((collection) => collection.id !== id)
+      );
+    }
+  };
+
+  // function to check if collection is added or not
+  const collectionAdded = (id) => {
+    const index = collections.findIndex((collection) => collection.id == id);
+    if (index === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  // to get previously liked songs/playlist and collections from local storage
+  useEffect(() => {
+    const storageLikes = JSON.parse(localStorage.getItem("likes"));
+    setLikes(storageLikes);
+
+    const storageCollections = JSON.parse(localStorage.getItem("collections"));
+    setCollections(storageCollections);
+  }, []);
+
+  // to set liked songs/playlist and collections to local storage
+  useEffect(() => {
+    localStorage.setItem("likes", JSON.stringify(likes));
+    localStorage.setItem("collections", JSON.stringify(collections));
+  }, [likes, collections]);
+
+
+  //TO PUT ALL NEW RELEASES AND POPULAR SONGS IN AN ARRAY FOR SEARCH
+  const [popular, setPopular] = useState([]);
+  const [newReleases, setNewReleases] = useState([]);
+  const [allMusic, setAllMusic] = useState([]);
+
+  useEffect(() => {
+    if (popular.length > 0 && newReleases.length > 0) {
+      const newArray = popular.concat(newReleases);
+      setAllMusic(newArray);
+    }
+  }, [popular, newReleases]);
+
+  // SEARCH AND FILTER
+  const [search, setSearch] = useState("");
+  const [searchArray, setSearchArray] = useState([]);
+  const [focusOn, setFocusOn] = useState(false);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    const val = allMusic.filter((music) => {
+      return music.artist.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+    setSearchArray(val);
+  };
+
+  // AUDIO CONTEXT VALUE
   const contextValue = {
     audio,
     audioData,
@@ -203,7 +291,7 @@ export const SongContextProvider = ({ children }) => {
     isPlaying,
     setIsPlaying,
     setAudioArray,
-    setTrackIndex,
+    setAudioIndex,
     prev,
     next,
     playlistData,
@@ -221,7 +309,19 @@ export const SongContextProvider = ({ children }) => {
     likes,
     setLikes,
     collections,
-    setCollections
+    setCollections,
+    addOrRemoveLikes,
+    addOrRemoveCollection,
+    songLiked,
+    collectionAdded,
+    setNewReleases,
+    setPopular,
+    search,
+    handleSearch,
+    allMusic,
+    searchArray,
+    focusOn,
+    setFocusOn,
   };
 
   return (

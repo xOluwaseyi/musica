@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import SongContext from "../../context";
 
 const Search = () => {
+  const { search, handleSearch, setFocusOn } = useContext(SongContext);
 
   return (
     <>
-      <form
-        className="hidden md:flex items-center static bg-transparent top-0 h-[75px] z-50"
-      >
+      <form className="hidden md:flex items-center static bg-transparent top-0 h-[75px] z-50">
         <div className="relative w-full">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
@@ -25,6 +25,11 @@ const Search = () => {
           </div>
           <input
             type="text"
+            value={search}
+            onChange={handleSearch}
+            onFocus={() => {
+              setFocusOn(true);
+            }}
             className="bg-transparent outline-none block w-full pl-10 p-2.5  "
             placeholder="Search artists"
             required=""

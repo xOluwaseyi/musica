@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopChartsAlbum from "../../components/TopCharts/TopChartsAlbum";
 
+// to fetch data and create dynamic pages
 export const getStaticPaths = async () => {
   const res = await fetch("https://musica-api.up.railway.app/playlist");
   const data = await res.json();
@@ -27,14 +28,17 @@ export const getStaticProps = async (context) => {
   };
 };
 
+// component to be diaplyed
 const DetailsPage = ({ playlistData, id }) => {
+  // state
   const [chartData, setChartData] = useState({});
   const [chartDataArray, setChartDataArray] = useState([])
   const [arrayLength, setArrayLength] = useState(null);
   
-
+  // to init data to be displayed
   useEffect(() => {
     if (playlistData !== null) {
+      // to get playlist id
       const playlistIdArray = id.split("-");
       const playlistId = playlistIdArray[1] - 1;
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const MusicaLogoSvg = ({ styling }) => {
+const MusicaLogoSvg = () => {
   return (
     <svg
       width="34"

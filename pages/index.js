@@ -5,7 +5,15 @@ import HomeCover from "../components/Home/HomeCover";
 import SongContext from "../context";
 
 const Home = ({ newReleases, popular, playlist }) => {
-  
+  const { setNewReleases, setPopular, } = useContext(SongContext);
+
+  useEffect(() => {
+    if (newReleases && popular) {
+      setNewReleases(newReleases)
+      setPopular(popular)
+    }
+  }, [newReleases, popular]);
+
   return (
     <section className="pb-[120px]">
       <div className="flex flex-col xl:flex-row justify-between mt-5">

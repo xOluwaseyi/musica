@@ -8,7 +8,7 @@ This is the repo of [codingossy](https://twitter.com/codingossy)'s October chall
 
 ## 🔗 **Links:**
 
- - [Live link](https://musica-webapp.netlify.app/) to the completed project by me.
+ - [Live link](https://musica-webapp.vercel.app/) to the completed project by me.
  - [Figma link](https://www.figma.com/file/pbwKUpfKPoAcBIgFoXFueS/Musica?node-id=0%3A1) for the challenge.
 
 <br />

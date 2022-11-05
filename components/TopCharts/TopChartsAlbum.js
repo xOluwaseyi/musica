@@ -15,6 +15,9 @@ const TopChartsAlbum = ({
   // state
   const [chartData, setChartData] = useState({});
   const [arrayLength, setArrayLength] = useState(null);
+  const [successId, setSuccessId] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
 
   // router
   const router = useRouter();
@@ -27,8 +30,30 @@ const TopChartsAlbum = ({
     songLiked,
     addOrRemoveLikes,
     addOrRemoveCollection,
-    collectionAdded
+    collectionAdded,
   } = useContext(SongContext);
+
+  // for adding or removing collection message
+  useEffect(() => {
+    if (successId !== null) {
+      setSuccess(true);
+      const result = collectionAdded(successId);
+
+      if (result) {
+        setMessage("Playlist added to collections");
+      } else {
+        setMessage("Playlist removed from collections");
+      }
+    }
+
+    const timeout = setTimeout(() => {
+        setSuccess(false);
+    }, [1500]);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [successId, collectionAdded]);
 
   // to init data to be displayed
   useEffect(() => {
@@ -54,7 +79,7 @@ const TopChartsAlbum = ({
         </div>
       )}
 
-{/* to close playlist details */}
+      {/* to close playlist details */}
       <p
         onClick={() => {
           router.back();
@@ -69,6 +94,14 @@ const TopChartsAlbum = ({
         {/* playlist details cover */}
         {chartData.cover && (
           <div className="h-[340px] w-auto overflow-hidden rounded-lg">
+            {/* success message */}
+            {success && (
+              <p className="success">
+                {message}
+              </p>
+            )}
+            {/* // success message end */}
+
             <div className=" h-[350px] w-[350px] relative overflow-hidden rounded-lg">
               <Image
                 src={chartData.cover}
@@ -108,6 +141,7 @@ const TopChartsAlbum = ({
               className="bg-[#ffffff12] rounded-2xl p-3 gap-3 flex items-center cursor-pointer noSelect "
               onClick={() => {
                 addOrRemoveCollection(chartData.id, chartData);
+                setSuccessId(chartData.id);
               }}
             >
               <AddCollectionIcon styling="fill-[#FACD66] h-[25px] w-[25px]" />

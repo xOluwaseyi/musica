@@ -28,6 +28,12 @@
 }
 
 @layer components {
+  /* topchartsalbum.js */
+  .success {
+    @apply fixed left-[50%] top-[10%] translate-x-[-50%] translate-y-[-50%] bg-[#FACD66] px-[15px] py-[20px] text-black text-center z-[100] font-bold
+  }
+
+
   /* desktopnav.js */
   .navlink-animation {
     @apply hover:text-[#FACD66] hover:opacity-100 transition ease-in-out hover:scale-100
@@ -35,7 +41,7 @@
   
   /* collection.js */
   .collection-btn {
-    @apply w-[50%] md:w-auto py-2 px-4 mx-5 border-2 border-[#EFEEE0] opacity-50 rounded-full text-[#EFEEE0]
+    @apply w-[50%] md:w-auto py-2 px-4 border-2 border-[#EFEEE0] opacity-50 rounded-full text-[#EFEEE0]
   }
   .active-collection-btn {
     @apply bg-[#FACD66] w-[50%] md:w-auto px-4 py-2 rounded-full text-black font-bold

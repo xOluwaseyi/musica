@@ -30,7 +30,7 @@ const Collections = () => {
         <button
           className={`${
             showCollections ? "active-collection-btn" : "collection-btn"
-          } `}
+          } mr-2`}
           type="button"
           onClick={() => {
             setShowCollections(true);

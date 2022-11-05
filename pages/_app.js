@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
 import { SongContextProvider } from "../context";
@@ -6,7 +7,6 @@ import { SongContextProvider } from "../context";
 import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }) {
-
   return (
     <>
       <SongContextProvider>
@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
 
           <NextNProgress />
           <Component {...pageProps} />
+          <Analytics />
         </Layout>
       </SongContextProvider>
     </>

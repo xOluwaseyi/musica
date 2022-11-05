@@ -20,7 +20,7 @@ const ErrorPage = () => {
         <h1 className="font-extrabold italic border-4 p-1 text-lg md:text-2xl mb-3 md:mb-5">
           - PAGE NOT AVAILABLE -
         </h1>
-        <p className="text-lg md:text-2xl text-center font-medium md-5 md:mb-7">
+        <p className="text-lg md:text-2xl text-center font-medium mb-5 md:mb-7">
           This page you are trying to view is either not available at the moment
           or you have input an invallid URL. Where do you want to go from here?
         </p>

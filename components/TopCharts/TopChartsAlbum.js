@@ -48,6 +48,7 @@ const TopChartsAlbum = ({
 
     const timeout = setTimeout(() => {
         setSuccess(false);
+        setSuccessId(null)
     }, [1500]);
 
     return () => {

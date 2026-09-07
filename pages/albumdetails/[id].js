@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import TopChartsAlbum from "../../components/TopCharts/TopChartsAlbum";
+import { getBaseUrl } from "../../lib/baseUrl";
 
 // to fetch data and create dynamic pages
 export const getStaticPaths = async () => {
-  const res = await fetch("https://musica-api.up.railway.app/playlist");
+  const res = await fetch(`${getBaseUrl()}/api/playlist`);
   const data = await res.json();
 
   const paths = data.map((playlist) => {
@@ -20,7 +21,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await fetch("https://musica-api.up.railway.app/playlist");
+  const res = await fetch(`${getBaseUrl()}/api/playlist`);
   const data = await res.json();
 
   return {

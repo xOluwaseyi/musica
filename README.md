@@ -4,6 +4,12 @@ This is the repo of [codingossy](https://twitter.com/codingossy)'s October chall
 
 <br />
 
+## 🔄 **Backend update:**
+
+The original custom Musica API (built by Hemdee JS for this challenge) has gone offline, which took the live site down with it. To bring it back, the app now runs on a self-hosted backend built with Next.js API routes (see `/pages/api`), which proxies the free [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) to serve real song metadata, cover art, and 30-second preview audio — now curated around Nigerian gospel artists. No frontend UI or logic was changed; only the API base URL was updated.
+
+<br />
+
 #  ✍🏽 **Overview**
 
 ## 🔗 **Links:**
@@ -44,7 +50,8 @@ This is the repo of [codingossy](https://twitter.com/codingossy)'s October chall
 
  - [NextJS](https://nextjs.org/).
  - [Tailwind CSS](https://tailwindcss.com/docs/installation).
- - [Musica API](https://musica-api.up.railway.app/) (customly made by [Hemdee JS](https://twitter.com/SanusiMuhyideen) for this challenge).
+ - ~~[Musica API](https://musica-api.up.railway.app/) (customly made by [Hemdee JS](https://twitter.com/SanusiMuhyideen) for this challenge)~~ — retired, no longer online.
+ - [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) via a self-hosted Next.js API (current backend).
 
 <br />
 

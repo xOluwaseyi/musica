@@ -3,7 +3,7 @@ import MusicScroll from "../components/UI/MusicScroll";
 import TopCharts from "../components/TopCharts/TopCharts";
 import HomeCover from "../components/Home/HomeCover";
 import SongContext from "../context";
-import { getBaseUrl } from "../lib/baseUrl";
+import { getNewReleases, getPopular, getPlaylists } from "../lib/gospelData";
 
 const Home = ({ newReleases, popular, playlist }) => {
   const { setNewReleases, setPopular, } = useContext(SongContext);
@@ -35,19 +35,11 @@ const Home = ({ newReleases, popular, playlist }) => {
 };
 
 export const getServerSideProps = async () => {
-  const base = getBaseUrl();
-
-  // new releases
-  const res1 = await fetch(`${base}/api/new`);
-  const newReleases = await res1.json();
-
-  //   popular
-  const res2 = await fetch(`${base}/api/popular`);
-  const popular = await res2.json();
-
-  //   playlist
-  const res3 = await fetch(`${base}/api/playlist`);
-  const playlist = await res3.json();
+  // fetched sequentially (not Promise.all) to avoid bursting the
+  // rate-limited, unauthenticated iTunes API on a cold cache
+  const newReleases = await getNewReleases();
+  const popular = await getPopular();
+  const playlist = await getPlaylists();
 
   return {
     props: { newReleases, popular, playlist },
